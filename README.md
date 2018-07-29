@@ -39,3 +39,5 @@ docker-compose build
 ```
 docker-compose up
 ```
+
+Open [http://localhost/api/oauth](http://localhost/api/oauth) in your browser
