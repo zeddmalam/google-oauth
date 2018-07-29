@@ -53,6 +53,12 @@ app.get('/api/oauth/callback', async (req, res) => {
 app.get('/api/oauth/authorized', async (req, res) => {
   console.log('/api/oauth/authorized');
   try {
+    const auth = req.get('Authorization');
+    if(!auth){
+      res.status(401).send(`Unauthorized!`);
+      console.log('Unauthorized, Authorization missing', auth);
+      return;
+    }
     const tokenInfo = await request.get(`https://www.googleapis.com/oauth2/v3/tokeninfo?access_token=${req.get('Authorization').replace('Bearer ', '')}`);
     const whitelist = await request.get(OAUTH_WHITELIST);
     if (!whitelist.body[tokenInfo.body.sub]) {
